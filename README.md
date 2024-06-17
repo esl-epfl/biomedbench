@@ -59,7 +59,7 @@ The folder structure look like that:
 Look at the Readme of each platform folder (./Applications/.../<platform_name>/Readme.md) for more information on how to run the application on each platform.
 
 ## Issues and Troubleshooting
-If you find any problems or issues with the applications, please check out the issue tracker and create a new issue if your problem is not yet tracked.
+If you find any problems or issues with the applications, please check out the [issue tracker](https://github.com/esl-epfl/biomedbench/issues) and create a new issue if your problem is not yet tracked.
 
 ## Useful links
 For an overview of BiomedBench, check out: [BiomedBench website](https://biomedbench.epfl.ch/)
