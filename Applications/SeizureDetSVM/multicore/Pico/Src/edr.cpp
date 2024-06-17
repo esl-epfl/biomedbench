@@ -1,0 +1,165 @@
+/*
+ *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
+ *
+ *  Licensed under the Apache License, Version 2.0 (the License);
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an AS IS BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+
+//////////////////////////////////////////////////
+// Author:          ESL team                    //  
+// Optimizations:   Dimitrios Samakovlis        //
+/////////////////////////////////////////////////
+
+
+
+#ifndef EDR_HPP_
+#define EDR_HPP_
+
+
+#include <cmath>
+#include "global_config.hpp"
+#include "utils.hpp"
+#include "edr.hpp"
+
+extern "C"  {
+    #include <stdint.h>
+    #include "fixmath.h"
+    //#include "pico/multicore.h"
+    #include "Pico_management/multicore.h"
+}
+
+// DIMITRIOS SAMAKOVLIS PARALLELIZATION	
+int32_t *woBaseline;
+int rPeak_sync; 			// used for dynamic scheduling sync
+
+void EcgDerivedRespiration(
+    const int32_t **arg, int id
+) {
+    int32_t *ecg = arg[0];
+    int ecgSize = (int)*arg[1];
+    const int16_t *rPeak = (int16_t *)arg[2];
+    int *rPeakSize = (int *)arg[3];
+    fixed_t* edr = (fixed_t *)arg[5];
+    
+    constexpr int WIN0 = std::ceil(0.2*ECG_FREQ);
+    constexpr int WIN1 = std::ceil(0.6*ECG_FREQ);
+    constexpr int INTEGRAL_RADIUS = std::ceil(0.1*ECG_FREQ);
+    
+    
+    // *******************************************************************
+    // IMPORTANT TO DYNAMICALLY ALLOCATE THIS MATRIX BECAUSE OF SIZE
+    if (id == 0)	{
+	    woBaseline = (int32_t *) malloc(sizeof(int32_t) * WIN_SIZE);
+    }
+    pico_barrier(id);
+    
+    // Dimitrios Samakovlis Parallelization
+    // Merge all steps in 1 function
+    int32_t sum = 0;
+    int i = 0;
+    
+    // classic static scheduling partition
+    int chunk = ecgSize / NUMBER_OF_CORES;
+    int start_index = id * chunk;
+    if (id == NUMBER_OF_CORES - 1)
+	chunk += ecgSize % NUMBER_OF_CORES;
+    
+    int32_t *arr = ecg + (int32_t)start_index;
+    
+    // filt_1
+    for (; i < WIN0; ++i) {
+        sum += arr[i];
+    }
+    if (id != NUMBER_OF_CORES - 1)	{
+	    for (; i < chunk + WIN0; ++i) {
+	        woBaseline[i + start_index - WIN0] = sum/WIN0;
+	        sum += arr[i] - arr[i - WIN0];
+	    }
+    }
+    else	{
+	    for (; i < chunk; ++i) {
+	        woBaseline[i + start_index - WIN0] = sum/WIN0;
+	        sum += arr[i] - arr[i - WIN0];
+	    }
+	    for (i -= WIN0; i < chunk; ++i) {
+	        woBaseline[i + start_index] = sum/(ecgSize-i-start_index);
+	        sum -= arr[i];
+	    }
+    }
+
+    pico_barrier(id);
+    
+    //filt_2
+    // write back on woBaseline_tmp because of sequential dependencies
+    i = start_index;
+    sum = 0;
+    for (; i < start_index + WIN1; ++i) {
+        sum += woBaseline[i];
+    }
+    
+    if (id != NUMBER_OF_CORES - 1)	{
+	    for (; i < chunk + start_index + WIN1; ++i) {
+	        int32_t aux = woBaseline[i - WIN1];
+	        ecg[i - WIN1] -= sum/WIN1;
+	        sum += woBaseline[i] - aux;
+	    }
+    }
+    else {
+	    for (; i < chunk + start_index; ++i) {
+	        int32_t aux = woBaseline[i - WIN1];
+	        ecg[i - WIN1] -= sum/WIN1;
+	        sum += woBaseline[i] - aux;
+	    }
+
+	    for (i -= WIN1; i < chunk + start_index; ++i) {
+	        int32_t aux = woBaseline[i];
+	        ecg[i] -= sum/(ecgSize-i);
+	        sum -= aux;
+	    }
+    }
+
+    pico_barrier(id);
+    
+    for (i = start_index; i < start_index + chunk; ++i) {
+        woBaseline[i] = ecg[i];
+    }
+    
+    rPeak_sync = NUMBER_OF_CORES;
+    pico_barrier(id);
+    
+    // custom dynamic scheduling clause
+    i = id;
+    
+    while (i < *rPeakSize) {
+        int center = (int) rPeak[i];
+        int l = max(center - INTEGRAL_RADIUS, 0);
+        int r = min(center + 1 + INTEGRAL_RADIUS, ecgSize);
+        int32_t integral = 0;
+        for (int j = l; j < r; ++j) {
+            integral += std::abs(woBaseline[j]);
+        }
+        edr[i] = (fixed_t)integral / (r-l);
+	
+	    pico_critical_enter();
+	    i = rPeak_sync++;
+	    pico_critical_exit();
+    }
+    pico_barrier(id);
+    // free space
+    if (id == 0)
+	    free((void *) woBaseline);
+}
+
+
+#endif  // EDR_HPP_
+

@@ -1,0 +1,58 @@
+   text	   data	    bss	    dec	    hex	filename
+    420	      0	      0	    420	    1a4	bin/deepsleep_wake.o
+     84	      0	      0	     84	     54	bin/am_util_delay.o
+    232	      0	      0	    232	     e8	bin/am_util_faultisr.o
+   3315	      0	    257	   3572	    df4	bin/am_util_stdio.o
+    636	      0	      0	    636	    27c	bin/am_devices_led.o
+    268	      4	 307220	 307492	  4b124	bin/heap_2.o
+    860	      0	      0	    860	    35c	bin/event_groups.o
+    152	      0	      0	    152	     98	bin/list.o
+   4128	      0	      0	   4128	   1020	bin/queue.o
+   5100	      0	    216	   5316	   14c4	bin/tasks.o
+   1284	      0	     60	   1344	    540	bin/timers.o
+   1256	      4	     21	   1281	    501	bin/port.o
+    372	   4096	      0	   4468	   1174	bin/startup_gcc.o
+  33840	  25872	      0	  59712	   e940	bin/launch.o
+    865	      0	      0	    865	    361	bin/Adam_optimizer.o
+   1044	      0	      0	   1044	    414	bin/training_batch_norm.o
+   3460	      0	      8	   3468	    d8c	bin/training_conv.o
+   1064	      0	      0	   1064	    428	bin/training_fully_connected.o
+   2216	      0	     48	   2264	    8d8	bin/training_loss_QOID.o
+    724	      0	      0	    724	    2d4	bin/utils.o
+   2792	    128	   2080	   5000	   1388	am_bsp.o (ex ../../../bsp/gcc/bin/libam_bsp.a)
+    312	      0	      0	    312	    138	am_bsp_pins.o (ex ../../../bsp/gcc/bin/libam_bsp.a)
+   1600	      0	     84	   1684	    694	am_hal_adc.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   8699	      0	    204	   8903	   22c7	am_hal_ble.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   5712	    540	      0	   6252	   186c	am_hal_ble_patch.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   1828	   5052	      0	   6880	   1ae0	am_hal_ble_patch_b0.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    296	      0	      1	    297	    129	am_hal_burst.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    939	      0	      0	    939	    3ab	am_hal_cachectrl.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    580	      0	      0	    580	    244	am_hal_clkgen.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   1796	      0	    352	   2148	    864	am_hal_cmdq.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   3035	     16	    128	   3179	    c6b	am_hal_ctimer.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+      4	      0	      0	      4	      4	am_hal_debug.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    360	     16	     28	    404	    194	am_hal_entropy.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   3332	     12	      0	   3344	    d10	am_hal_flash.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+     62	      0	      4	     66	     42	am_hal_global.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   2158	      0	    400	   2558	    9fe	am_hal_gpio.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+     24	      0	      0	     24	     18	am_hal_interrupt.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   8332	      0	  13272	  21604	   5464	am_hal_iom.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   2211	      0	     72	   2283	    8eb	am_hal_ios.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    472	      0	      0	    472	    1d8	am_hal_itm.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    912	      0	      0	    912	    390	am_hal_mcuctrl.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   5968	      0	   2212	   8180	   1ff4	am_hal_mspi.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   1076	      0	     12	   1088	    440	am_hal_pdm.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   1648	      0	      1	   1649	    671	am_hal_pwrctrl.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    272	      0	      0	    272	    110	am_hal_queue.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    380	      0	      4	    384	    180	am_hal_reset.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   1100	      0	      0	   1100	    44c	am_hal_rtc.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   4876	      0	    112	   4988	   137c	am_hal_scard.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    264	      0	     12	    276	    114	am_hal_secure_ota.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    888	      4	    516	   1408	    580	am_hal_security.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    636	      0	      0	    636	    27c	am_hal_stimer.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    348	      0	      8	    356	    164	am_hal_sysctrl.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    292	      0	      0	    292	    124	am_hal_systick.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    360	      0	      0	    360	    168	am_hal_tpiu.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+   2844	      0	    208	   3052	    bec	am_hal_uart.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+    451	      0	      0	    451	    1c3	am_hal_wdt.o (ex ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a)
+  47028	  25932	 311508	 384468	  5ddd4	bin/BioBPfree.axf

@@ -1,0 +1,85 @@
+/*
+ *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
+
+//////////////////////////////////////////////////////
+// Author:          Stefano Albini                  //
+// Contributions:   Dimitrios Samakovlis            //
+// Date:            September 2023                  //
+//////////////////////////////////////////////////////
+
+#ifndef EGLASS_H
+#define EGLASS_H
+
+#include <stdint.h>
+#include <fixmath.h>
+
+// for FreeRTOS
+#include "FreeRTOS.h"
+#include "task.h"
+#include "portmacro.h"
+#include "portable.h"
+#include "semphr.h"
+#include "event_groups.h"
+
+//#define PRINT_INFO
+
+// #define ONLY_CLASSIFICATION //only for testing, to run only the classification
+
+// #define USE_64  // toggles the 64bit operations 
+
+// #define SAVE_FEAT   // used to save the final features into a txt file, works only if the script is run for 28 halfwindows
+// #define FEAT_FILEPATH   "../features/yes64.txt" // path of the file in which to save the features
+
+// #define PRINT_FEAT  // to print all the final features at once
+
+#define APPLY_BLINK_REMOVAL
+#define FILTER_ACTIVE
+
+// defines the number of halfindow to process before the script terminates
+// If the input data is not enough, they are repeated in a cyclic way
+#define N_HALFWIND_TO_PROCESS   29
+
+//#define WINDOW_SIZE 1024
+#define CH_TO_STORE 4
+
+#define N_DEC       18
+#define N_DEC_BIQ   24
+#define N_DEC_REL   12
+#define N_DEC_BLINK 9
+
+// Statistical feature extraction
+#define N_DEC_STAT  8   // general for the module
+#define N_STAT_AVRG 17  // to compute the average
+#define N_STAT_VAR  7   // to compute the variance
+
+// Entropy feature extraction
+#define N_DEC_ENTR  20
+
+//Power feature extraction
+#define N_DEC_POW   18
+#define N_DEC_TP    11   // used to store the total power
+#define N_DEC_CMPLX 10   // used to compute the complex magnitude squared
+#define N_DEC_PER   11  // used to store the final accumulated periodogram
+#define N_DEC_PSD   20
+
+typedef int32_t my_int;
+
+#define MUL(x, y, sh) ((x * y) >> sh)
+
+int eglass();
+
+#endif

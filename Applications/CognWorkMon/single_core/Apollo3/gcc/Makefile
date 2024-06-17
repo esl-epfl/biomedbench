@@ -1,0 +1,231 @@
+#******************************************************************************
+#
+# Makefile - Rules for building the libraries, examples and docs.
+#
+# Copyright (c) 2021, Ambiq Micro, Inc.
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#
+# 1. Redistributions of source code must retain the above copyright notice,
+# this list of conditions and the following disclaimer.
+#
+# 2. Redistributions in binary form must reproduce the above copyright
+# notice, this list of conditions and the following disclaimer in the
+# documentation and/or other materials provided with the distribution.
+#
+# 3. Neither the name of the copyright holder nor the names of its
+# contributors may be used to endorse or promote products derived from this
+# software without specific prior written permission.
+#
+# Third party software included in this distribution is subject to the
+# additional license terms as defined in the /docs/licenses directory.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+# ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+# LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+#
+# This is part of revision release_sdk_3_0_0-742e5ac27c of the AmbiqSuite Development Package.
+#
+#******************************************************************************
+TARGET := CognWorkMon
+COMPILERNAME := gcc
+PROJECT := deepsleep_wake_gcc
+CONFIG := bin
+
+SHELL:=/bin/bash
+
+# Enable printing explicit commands with 'make VERBOSE=1'
+ifneq ($(VERBOSE),1)
+Q:=@
+endif
+
+#### Setup ####
+
+TOOLCHAIN ?= arm-none-eabi
+PART = apollo3
+CPU = cortex-m4
+FPU = fpv4-sp-d16
+# Default to FPU hardware calling convention.  However, some customers and/or
+# applications may need the software calling convention.
+#FABI = softfp
+FABI = hard
+
+LINKER_FILE := ./deepsleep_wake.ld
+#STARTUP_FILE := ./startup_$(COMPILERNAME).c
+
+#### Required Executables ####
+CC = $(TOOLCHAIN)-gcc
+GCC = $(TOOLCHAIN)-gcc
+CPP = $(TOOLCHAIN)-cpp
+LD = $(TOOLCHAIN)-ld
+CP = $(TOOLCHAIN)-objcopy
+OD = $(TOOLCHAIN)-objdump
+RD = $(TOOLCHAIN)-readelf
+AR = $(TOOLCHAIN)-ar
+SIZE = $(TOOLCHAIN)-size
+RM = $(shell which rm 2>/dev/null)
+
+EXECUTABLES = CC LD CP OD AR RD SIZE GCC
+K := $(foreach exec,$(EXECUTABLES),\
+        $(if $(shell which $($(exec)) 2>/dev/null),,\
+        $(info $(exec) not found on PATH ($($(exec))).)$(exec)))
+$(if $(strip $(value K)),$(info Required Program(s) $(strip $(value K)) not found))
+
+ifneq ($(strip $(value K)),)
+all clean:
+	$(info Tools $(TOOLCHAIN)-$(COMPILERNAME) not installed.)
+	$(RM) -rf bin
+else
+
+DEFINES = -DPART_$(PART)
+DEFINES+= -DAM_PART_APOLLO3
+DEFINES+= -DAM_PACKAGE_BGA
+DEFINES+= -DAM_PRINTF_BUFSIZE=256
+DEFINES+= -Dgcc
+DEFINES+= -D_USE_MATH_DEFINES
+
+INCLUDES = -I../../../../../CMSIS/ARM/Include
+INCLUDES+= -I../src
+INCLUDES+= -I../../../../../CMSIS/AmbiqMicro/Include
+INCLUDES+= -I../../../../../utils
+INCLUDES+= -I../../../bsp
+INCLUDES+= -I../../../../..
+INCLUDES+= -I../../../../../mcu/apollo3
+INCLUDES+= -I../../../../../devices
+INCLUDES+= -I../src/lib
+
+
+# extra includes for FreeRTOS
+INCLUDES+= -I../../../../../third_party/FreeRTOSv10.1.1/Source/include
+INCLUDES+= -I../../../../../third_party/FreeRTOSv10.1.1/Source/portable/GCC/AMapollo2
+INCLUDES+= -I../../../../../third_party/FreeRTOSv10.1.1/Source/portable/MemMang
+INCLUDES+= -I../../../../../third_party/FreeRTOSv10.1.1/Source
+
+
+VPATH = ../../../../../utils
+VPATH+=:../src
+VPATH+=:../../../../../devices
+VPATH+=:../src/lib
+
+# Extra include as before
+VPATH+=:../../../../../third_party/FreeRTOSv10.1.1/Source
+VPATH+=:../../../../../third_party/FreeRTOSv10.1.1/Source/portable/GCC/AMapollo2
+VPATH+=:../../../../../third_party/FreeRTOSv10.1.1/Source/portable/MemMang
+
+
+SRC = deepsleep_wake.c
+SRC += am_util_delay.c
+SRC += am_util_faultisr.c
+SRC += am_util_stdio.c
+SRC += am_devices_led.c
+SRC += heap_2.c
+SRC += event_groups.c
+SRC += list.c
+SRC += queue.c
+SRC += tasks.c
+SRC += timers.c
+SRC += port.c
+SRC += startup_gcc.c
+
+#extra lines to include the project specific .c files
+SRC += biquad_filter.c
+SRC += eglass.c
+SRC += featureExtraction.c
+SRC += fixmath.c
+SRC += fixmath_impl.c
+SRC += fx_fft.c
+SRC += nonLinearFeatureExtraction.c
+SRC += powerfeatureExtraction.c
+SRC += relativeEnergy.c
+SRC += signal_pre_proc.c
+SRC += statisticalFeatureExtraction.c
+SRC += utils_functions.c
+
+CSRC = $(filter %.c,$(SRC))
+ASRC = $(filter %.s,$(SRC))
+
+OBJS = $(CSRC:%.c=$(CONFIG)/%.o)
+OBJS+= $(ASRC:%.s=$(CONFIG)/%.o)
+
+DEPS = $(CSRC:%.c=$(CONFIG)/%.d)
+DEPS+= $(ASRC:%.s=$(CONFIG)/%.d)
+
+LIBS = ../../../bsp/gcc/bin/libam_bsp.a
+LIBS += ../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a
+
+CFLAGS = -mthumb -mcpu=$(CPU) -mfpu=$(FPU) -mfloat-abi=$(FABI)
+CFLAGS+= -ffunction-sections -fdata-sections -fomit-frame-pointer -fpermissive
+CFLAGS+= -MMD -MP -std=c99 -Wall -g -w 
+CFLAGS+= -O3
+CFLAGS+= $(DEFINES)
+CFLAGS+= $(INCLUDES)
+CFLAGS+= 
+
+LFLAGS = -mthumb -mcpu=$(CPU) -mfpu=$(FPU) -mfloat-abi=$(FABI) 
+#-specs=nano.specs -specs=nosys.specs
+LFLAGS+= -nostartfiles -static
+LFLAGS+= -Wl,--gc-sections,--entry,Reset_Handler,-Map,$(CONFIG)/$(TARGET).map
+LFLAGS+= -Wl,--start-group -lm -lc -lgcc $(LIBS) -Wl,--end-group
+LFLAGS+= 
+
+# Additional user specified CFLAGS
+CFLAGS+=$(EXTRA_CFLAGS)
+
+CPFLAGS = -Obinary
+
+ODFLAGS = -S
+
+#### Rules ####
+all: directories $(CONFIG)/$(TARGET).bin
+
+directories: $(CONFIG)
+
+$(CONFIG):
+	@mkdir -p $@
+
+$(CONFIG)/%.o: %.c $(CONFIG)/%.d
+	@echo " Compiling $(COMPILERNAME) $<"
+	$(Q) $(CC) -c $(CFLAGS) $< -o $@
+
+$(CONFIG)/%.o: %.s $(CONFIG)/%.d
+	@echo " Assembling $(COMPILERNAME) $<"
+	$(Q) $(CC) -c $(CFLAGS) $< -o $@
+
+$(CONFIG)/$(TARGET).axf: $(OBJS) $(LIBS)
+	@echo " Linking $(COMPILERNAME) $@"
+	$(Q) $(CC) -N -Wl,-T,$(LINKER_FILE) -o $@ $(OBJS) $(LFLAGS)
+
+$(CONFIG)/$(TARGET).bin: $(CONFIG)/$(TARGET).axf
+	@echo " Copying $(COMPILERNAME) $@..."
+	$(Q) $(CP) $(CPFLAGS) $< $@
+	$(Q) $(OD) $(ODFLAGS) $< > $(CONFIG)/$(TARGET).lst
+	$(Q) $(SIZE) $(OBJS) $(LIBS) $(CONFIG)/$(TARGET).axf >$(CONFIG)/$(TARGET).size
+
+clean:
+	@echo "Cleaning..." ;\
+	rm -f $(OBJS) $(DEPS) \
+	    $(CONFIG)/$(TARGET).bin $(CONFIG)/$(TARGET).axf \
+	    $(CONFIG)/$(TARGET).lst $(CONFIG)/$(TARGET).map
+
+$(CONFIG)/%.d: ;
+
+../../../bsp/gcc/bin/libam_bsp.a:
+	$(MAKE) -C ../../../bsp
+
+../../../../../mcu/apollo3/hal/gcc/bin/libam_hal.a:
+	$(MAKE) -C ../../../../../mcu/apollo3/hal
+
+# Automatically include any generated dependencies
+-include $(DEPS)
+endif
+.PHONY: all clean directories
