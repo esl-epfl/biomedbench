@@ -24,6 +24,7 @@
 //      Multiple instances of Adam can be instantiated through multiple Adam structs    //
 //////////////////////////////////////////////////////////////////////////////////////////
 
+
 // Library includes
 #include <stdlib.h>
 #include <stdio.h>

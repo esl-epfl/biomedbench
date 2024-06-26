@@ -766,7 +766,7 @@ void training_SeizDetCNN(SeizDetCNN_params_t *params, const my_type *x[4], unsig
         #endif
         // Do not train - finish this epoch
         if (!training)  {
-             #ifdef PRINT_LOSS
+            #ifdef PRINT_LOSS
             // Update loss after new FW pass
             loss = (categorical_cross_entropy(pos_class, y_seiz1, output_size)      +
                     categorical_cross_entropy(pos_class, y_seiz2, output_size)      +
