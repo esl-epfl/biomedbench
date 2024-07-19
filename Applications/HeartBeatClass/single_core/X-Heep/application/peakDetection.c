@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -146,7 +147,9 @@ void getPeakIndicesThroughHysteresisComparator(int16_t ecgWindow[BUFFER_SIZE], u
 
 #ifdef PRINT_THR 
 		for(int32_t i_t = 0; i_t<BUFFER_SIZE; i_t++)
-			printf("%d\n%d\n",(int32_t)lowerThreshold,(int32_t)upperThreshold);
+			printf("%d
+%d
+",(int32_t)lowerThreshold,(int32_t)upperThreshold);
 #endif	 
 
 		uint8_t analyzingPeak = 0; //boolean indicating if a peak is being analyzed
@@ -157,7 +160,8 @@ void getPeakIndicesThroughHysteresisComparator(int16_t ecgWindow[BUFFER_SIZE], u
 		//Loop through Xecg
 		for (uint16_t i = 0; i < BUFFER_SIZE; i++) {
 #ifdef PRINT_SIG_INPUT_PEAKS
- 			printf("%d\n", ecgWindow[i]);
+ 			printf("%d
+", ecgWindow[i]);
 #endif
 			if (ecgWindow[i] < lowerThreshold && analyzingPeak == 0) { //beginning of a peak
 				startIndex = i;
@@ -224,7 +228,9 @@ void getPeakIndicesThroughHysteresisComparator(int16_t ecgWindow[BUFFER_SIZE], u
 
 #ifdef PRINT_THR 
 		for(int32_t i_t = 0; i_t<BUFFER_SIZE; i_t++)
-			printf("%d\n%d\n",(int32_t)lowerThreshold,(int32_t)upperThreshold);
+			printf("%d
+%d
+",(int32_t)lowerThreshold,(int32_t)upperThreshold);
 #endif
 
 		uint8_t analyzingPeak = 0; //boolean indicating if a peak is being analyzed
@@ -234,7 +240,8 @@ void getPeakIndicesThroughHysteresisComparator(int16_t ecgWindow[BUFFER_SIZE], u
 		//Loop through Xecg
 		for (uint16_t i = 0; i < BUFFER_SIZE; i++) {
 #ifdef PRINT_SIG_INPUT_PEAKS
-		printf("%d\n", ecgWindow[i]);
+		printf("%d
+", ecgWindow[i]);
 #endif
 			if (ecgWindow[i] >= upperThreshold && analyzingPeak == 0) { //beginning of a peak
 				startIndex = i;

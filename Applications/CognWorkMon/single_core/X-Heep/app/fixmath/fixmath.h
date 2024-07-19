@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*  Copyright (C) 2005-2011, Axis Communications AB, LUND, SWEDEN
  *
  *  This file is part of Fixmath.
@@ -809,4 +810,3 @@ fx_cosx(fixed_t xval, unsigned frac);
 #endif
 
 #endif /* FIXMATH_H */
-

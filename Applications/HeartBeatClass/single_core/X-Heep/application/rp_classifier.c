@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -137,7 +138,9 @@ void rescaledProductory(uint16_t coeffs[NUM_COEFFICIENTS], uint16_t output[NUM_C
     uint16_t c, i;
     
     //Initial value (polygonal estimation for the first coefficient)
-    //printf("\nInitial value: \n");
+    //printf("
+Initial value: 
+");
     for(c=0;c<NUM_CLASSES;c++)  {
         output[c] = polygmf(coeffs[0], c, 0);
         //printf("%d ", output[c]);
@@ -155,13 +158,15 @@ void rescaledProductory(uint16_t coeffs[NUM_COEFFICIENTS], uint16_t output[NUM_C
             if(gaussians[c] > max)
                 max = gaussians[c];    
         }
-        //printf("Max: %d(%x)\n", max, max);
+        //printf("Max: %d(%x)
+", max, max);
         //If the maximum is 0 we cannot rescale (all vaules are 0)
         if(max == 0)
             continue;
 
         //Shift numbers as much as possible to the left in 32 bit precission
-        //printf("Gaussian: \n");
+        //printf("Gaussian: 
+");
         while(max < 1<<31)
         {
             max = 0;
@@ -174,7 +179,8 @@ void rescaledProductory(uint16_t coeffs[NUM_COEFFICIENTS], uint16_t output[NUM_C
             }
         }
 
-        //printf("Max after shift: %d(%x)\n", max, max);
+        //printf("Max after shift: %d(%x)
+", max, max);
 
         //Shift the 32 bit precission number 16 bits to the left to obtain the partial
         //result of the productory with highest precission possible
@@ -295,7 +301,9 @@ uint16_t classify(int16_t buffer[], uint16_t buffer_length, uint16_t peak)
     rescaledProductory(coefficients, productory);
     // PRINTING / DEBUGGING
     /*
-    printf("\nProductory:\n");
+    printf("
+Productory:
+");
     for(int i=0;i<NUM_CLASSES; i++)
         printf("%d ", productory[i]);*/
 

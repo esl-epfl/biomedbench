@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -47,7 +48,9 @@ int main (void) {
     for (int i=0; i<WINDOWS; i++)   {
         if (preprocess_input(bvp_sensor[i], gsr_sensor[i], temp_sensor[i])) {
             #ifdef PRINTING_DETAILS
-            printf("\n*** Batch %d ***\n", i + 1);
+            printf("
+*** Batch %d ***
+", i + 1);
             #endif
             temp = runKNN();
             count += temp;
@@ -58,27 +61,41 @@ int main (void) {
 
         #ifdef PRINTING_DETAILS
         if (temp == -1)
-            printf("Batch %d --> ERROR: Could not classify because value out of normalization range\n\n", i + 1);
+            printf("Batch %d --> ERROR: Could not classify because value out of normalization range
+
+", i + 1);
         else if (temp == 0)
-            printf("Batch %d --> NO FEAR\n\n", i + 1);
+            printf("Batch %d --> NO FEAR
+
+", i + 1);
         else
-            printf("Batch %d --> FEAR\n\n", i + 1);
+            printf("Batch %d --> FEAR
+
+", i + 1);
         #endif
     }
     #ifdef PRINT_CYCLES
         uint32_t cycles=timer_stop();
-        printf("Cycles: %d\n",cycles);
+        printf("Cycles: %d
+",cycles);
     #endif
     #ifdef PRINTING_RESULT
-    printf("*** CLASSIFICATION REPORT *** \n");
+    printf("*** CLASSIFICATION REPORT *** 
+");
     
     if (count > THRESHOLD)
-        printf("Result: FEAR!\n");
+        printf("Result: FEAR!
+");
     else
-        printf("Result: NO FEAR!\n");
+        printf("Result: NO FEAR!
+");
     
-    printf("Total batches: %d\nThreshold: %d\nFear batches:%d\n", WINDOWS, THRESHOLD, count);
-    printf("***************************** \n");
+    printf("Total batches: %d
+Threshold: %d
+Fear batches:%d
+", WINDOWS, THRESHOLD, count);
+    printf("***************************** 
+");
     #endif
 
     return 0;

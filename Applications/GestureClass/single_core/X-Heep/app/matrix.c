@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
 Copyright 2022 Mattia Orlandi
 
@@ -104,6 +105,7 @@ void print_mat(const Matrix *m) {
         for (size_t j = 0; j < m->width; j++) {
             printf("%.2f ", MAT_CELL(m, i, j));
         }
-        printf("\n");
+        printf("
+");
     }
 }

@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -391,7 +392,8 @@ void optimized_feature_extraction(dType* ecgRR, int32_t sigLength, dType fs, int
                 }
                 break;
             default:
-//              printf("Error in reading fiducial point\n");
+//              printf("Error in reading fiducial point
+");
                 break;
         }
         delineatedRR[i + (rp-1)*FPSIZE] = (uint32_t) feature + startindexRR;

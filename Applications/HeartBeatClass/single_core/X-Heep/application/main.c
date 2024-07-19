@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -38,7 +39,8 @@ int main()
 
     #ifdef PRINT_CYCLES
         uint32_t cycles=timer_stop();
-        printf("Cycles: %d\n",cycles);
+        printf("Cycles: %d
+",cycles);
     #endif
     return 0;
 }

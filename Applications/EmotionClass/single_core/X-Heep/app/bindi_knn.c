@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -136,7 +137,8 @@ void sort_n_Euclidean_distances(int n_closest) {
 
   // Calculate all distances from the test point
   #ifdef PRINTING_DETAILS
-  printf("--- kNN Inference -> Euclidean distances\n");
+  printf("--- kNN Inference -> Euclidean distances
+");
   #endif
   for (int i = 0; i < TRAINING_DATASET_SIZE; i++) {
     distances[i] = calculate_euclidean_distance(knn_training_dataset[i], knn_testing_dataset);
@@ -145,7 +147,8 @@ void sort_n_Euclidean_distances(int n_closest) {
   // Do a sorting to sort the n_closest distances
   // Traverse the distance array and swap both distance and training arrays
   #ifdef PRINTING_DETAILS
-  printf("--- kNN Inference -> Sorting distances\n");
+  printf("--- kNN Inference -> Sorting distances
+");
   #endif
   for (int i = 0; i < n_closest; i++) {
     float min_distance = distances[TRAINING_DATASET_SIZE - 1];
@@ -201,7 +204,8 @@ knnState_t perform_single_inference(void)
   }
 
   #ifdef PRINTING_DETAILS
-  printf("--- kNN Inference -> neighbors: Fear=%d, Nofear=%d\n", count_fear, count_no_fear);
+  printf("--- kNN Inference -> neighbors: Fear=%d, Nofear=%d
+", count_fear, count_no_fear);
   #endif
 
   /*... 50%*/

@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*  Copyright (C) 2005-2011, Axis Communications AB, LUND, SWEDEN
  *
  *  This file is part of Fixmath.
@@ -253,4 +254,3 @@ fx_rdivx(fixed_t xval, const fx_rdiv_t *rdiv)
 {
     return FX_IMPL_RDIVX(xval, rdiv);
 }
-

@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -62,7 +63,8 @@ int8_t PowerFeatureExtractionInit(uint16_t fftSize, unsigned short samp_freq, ui
 				status=1;
 			}
 			else {
-				printf("CANNOT ALLOCATE MEM!\n");
+				printf("CANNOT ALLOCATE MEM!
+");
 			}
 
 			i++;

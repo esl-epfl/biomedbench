@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
 Copyright 2022 Mattia Orlandi
 
@@ -182,7 +183,8 @@ static void clf_mlp_light_fn(void *args) {
     add_row_w(&act3, &mlp_light3_b);
 
 #ifdef PRINTING
-    printf("MLP output: \n");
+    printf("MLP output: 
+");
 #endif
 
     // Argmax
@@ -201,7 +203,8 @@ static void clf_mlp_light_fn(void *args) {
     *class = j_max;
 
 #ifdef PRINTING
-    printf("\n");
+    printf("
+");
 #endif
 }
 

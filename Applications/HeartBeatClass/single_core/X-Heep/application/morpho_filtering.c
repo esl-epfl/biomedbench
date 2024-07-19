@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -167,6 +168,3 @@ void filterWindows(int32_t *arg[])
 		 ecg_buffer[indsample + dim * (*i_lead)] = HighFreqFilt250HzProcess(&hf_filt[(*i_lead)], BaselineFiltProcess(&bl_filt[(*i_lead)], ecg_buffer[indsample + dim * (*i_lead)]));
 	}
 }
-
-
-

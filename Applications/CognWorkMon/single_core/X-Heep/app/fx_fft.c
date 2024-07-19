@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -343,7 +344,8 @@ uint32_t NumberOfBitsNeeded(uint32_t nsample)
 
   if (nsample < 2)
   {
-    fprintf(stderr, ">>> Error : argument %d to NumberOfBitsNeeded is too small.\n", nsample);
+    fprintf(stderr, ">>> Error : argument %d to NumberOfBitsNeeded is too small.
+", nsample);
     exit(1);
     return 0;
   }

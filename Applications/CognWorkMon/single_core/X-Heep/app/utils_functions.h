@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -47,4 +48,3 @@ void vect_offset(const my_int *src, my_int offset, my_int *dts, my_int size);
 void cmplx_mag_squared(const my_int *src, my_int *dst, uint32_t numSamples, int8_t n_dec);
 void convert_to_x(float *src, my_int* dest, my_int size, int8_t n_dec);
 void change_bit_depth(my_int *src, my_int *dst, int32_t size, int8_t old_depth, int8_t new_depth);
-

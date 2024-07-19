@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
 Copyright 2022 Mattia Orlandi
 
@@ -136,7 +137,9 @@ static void run_semg_bss() {
     // *** CLASSIFICATION ***
     uint8_t class = 0;
 #ifdef PRINTING
-    printf("\nMLPLight\n");
+    printf("
+MLPLight
+");
 #endif
     MLPLightArgs clf_args = {
         .mlp_light1_w = &mlp_light1_w,
@@ -154,22 +157,28 @@ static void run_semg_bss() {
 #ifdef PRINTING
     switch (class) {
         case 0:
-            printf("Predicted class: rest\n");
+            printf("Predicted class: rest
+");
             break;
         case 1:
-            printf("Predicted class: hand_open\n");
+            printf("Predicted class: hand_open
+");
             break;
         case 2:
-            printf("Predicted class: fist\n");
+            printf("Predicted class: fist
+");
             break;
         case 3:
-            printf("Predicted class: index\n");
+            printf("Predicted class: index
+");
             break;
         case 4:
-            printf("Predicted class: ok\n");
+            printf("Predicted class: ok
+");
             break;
         default:
-            printf("Unexpected class\n");
+            printf("Unexpected class
+");
     }
 #endif
 
@@ -183,7 +192,8 @@ int main(int argc, char *argv[]) {
     run_semg_bss();
      #ifdef PROFILING
         uint32_t cycles=timer_stop();
-        printf("Cycles: %d\n",cycles);
+        printf("Cycles: %d
+",cycles);
     #endif
     return 0;
 }

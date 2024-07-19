@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -62,14 +63,17 @@ int main()
     #ifdef PRINT_OUTPUT
     printf("Prediction : %d", predict);
     if (predict == 0)
-        printf(" (Normal)\n");
+        printf(" (Normal)
+");
     else
-        printf(" (Seizure)\n");
+        printf(" (Seizure)
+");
     #endif
 
     #ifdef PRINT_CYCLES
         uint32_t cycles=timer_stop();
-        printf("Cycles: %d\n",cycles);
+        printf("Cycles: %d
+",cycles);
     #endif
     
     return 0;
@@ -116,13 +120,15 @@ void conv1d(const int16_t * const data, const signed char * const filter, int16_
 
             if (sum > (MAX_INT_16) )    {
                 #ifdef PRINT_OVERFLOW
-                printf("Overflow %d\n", sum);
+                printf("Overflow %d
+", sum);
                 #endif
                 sum = (MAX_INT_16) -1;
             }
             else if (sum < -(MAX_INT_16)){
                 #ifdef PRINT_OVERFLOW
-                printf("Overflow %d\n", sum);
+                printf("Overflow %d
+", sum);
                 #endif
                 sum = -(MAX_INT_16) +1;
             }
@@ -194,13 +200,15 @@ void conv_max1d(const int16_t * const data, const signed char * const filter, in
             
         if (sum > (MAX_INT_16) ){
             #ifdef PRINT_OVERFLOW
-            printf("Overflow %d\n", sum);
+            printf("Overflow %d
+", sum);
             #endif
             sum = (MAX_INT_16) -1;
         }
         else if (sum < -(MAX_INT_16)){
             #ifdef PRINT_OVERFLOW
-            printf("Overflow %d\n", sum);
+            printf("Overflow %d
+", sum);
             #endif
             sum = -(MAX_INT_16) +1;
         }
@@ -257,13 +265,15 @@ void conv_max1d(const int16_t * const data, const signed char * const filter, in
             
         if (sum > (MAX_INT_16) ){
             #ifdef PRINT_OVERFLOW
-            printf("Overflow %d\n", sum);
+            printf("Overflow %d
+", sum);
             #endif
             sum = (MAX_INT_16) -1;
         }
         else if (sum < -(MAX_INT_16)){
             #ifdef PRINT_OVERFLOW
-            printf("Overflow %d\n", sum);
+            printf("Overflow %d
+", sum);
             #endif
             sum = -(MAX_INT_16) +1;
         }
@@ -358,10 +368,13 @@ int16_t forward_propagation(int16_t *data, int16_t *intermediate) {
            fc_depth_size[0], fc_map_size[1], fc_depth_size[1], fc_map_size[0], 1);
     
     #ifdef PRINT_FC0_OUT
-    printf("\nFC 0 out:\n");
+    printf("
+FC 0 out:
+");
     for(int i=0; i< fc_depth_size[1]*fc_map_size[0]; i++)
 	    printf("%d ", layer_out[i]);
-    printf("\n");
+    printf("
+");
     #endif
     
     //  ************  FC 1  ************ //
@@ -371,10 +384,15 @@ int16_t forward_propagation(int16_t *data, int16_t *intermediate) {
            fc_depth_size[1], fc_map_size[2], fc_depth_size[2], fc_map_size[1], 0);
     
     #ifdef PRINT_FC1_OUT
-    printf("\n\n\nFC 1 out:\n");
+    printf("
+
+
+FC 1 out:
+");
     for(int i=0; i< fc_depth_size[2]*fc_map_size[1]; i++)
 	    printf("%d ", layer_out[i]);
-    printf("\n");
+    printf("
+");
     #endif
 
     if (layer_out[0] > layer_out[1])

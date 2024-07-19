@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -44,7 +45,8 @@ unsigned int FeatureExtraction(my_int *features, my_int *sig, uint8_t channel)
 
 	if (!cpy_data_feat || !hist)
 	{
-		printf("ERROR!\n");
+		printf("ERROR!
+");
 	}
 
 	vect_copy(sig, cpy_data_feat, WINDOW_LENGTH);

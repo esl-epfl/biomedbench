@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -78,7 +79,8 @@ int8_t StatisticalFeatures_Init(uint8_t nBatches, uint8_t nchannels){
 				}
 				else{
 					status=0;
-                    printf("ERROR!\n");
+                    printf("ERROR!
+");
 					break;
 				}
 				i++;
@@ -86,12 +88,14 @@ int8_t StatisticalFeatures_Init(uint8_t nBatches, uint8_t nchannels){
 		}
 		else{
 			status=0;
-            printf("ERROR!\n");
+            printf("ERROR!
+");
 		}
 	}
 	else{
 		status=0;
-        	printf("ERROR!\n");
+        	printf("ERROR!
+");
 	}
 
 	return status;
@@ -147,7 +151,8 @@ int8_t StatisticalFeatures_InitHistogram (uint8_t nbins, my_int hist_min, my_int
 		}
 		else{
 			status=0;
-			printf("ERROR!\n");
+			printf("ERROR!
+");
 			break;
 		}
 

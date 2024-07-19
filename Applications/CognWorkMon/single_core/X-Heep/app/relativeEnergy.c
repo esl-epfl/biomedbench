@@ -1,3 +1,4 @@
+// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -63,7 +64,8 @@ uint8_t relEn_Init(uint16_t buffer_len)
 	//store the data copy in a contiguous memory
 	p = (my_int *) malloc(3*LONG_WINDOW_HALF*sizeof(my_int));
 	if(!p){
-		printf("MEM ERROR!\n");
+		printf("MEM ERROR!
+");
 	}
 
 	if(relEN_coeff && p){
@@ -91,7 +93,8 @@ uint8_t relEn(my_int *data, uint16_t len) {
 	my_int s1, s2;
 
 	if(len!=LONG_WINDOW_HALF)
-		printf("ERROR 1!\n");
+		printf("ERROR 1!
+");
 
 	switch(relEn_status.stage)
 	{
@@ -127,7 +130,8 @@ uint8_t relEn(my_int *data, uint16_t len) {
 
 			if(relEn_status.status!=REL_EN_START && relEn_status.status!=REL_EN_ONGOING) //has to be restarted explicitly to indicate that the previous coefficients were used already
 			{
-				printf("ERROR 2!\n");
+				printf("ERROR 2!
+");
 			}
 
 			if(relEn_status.status==REL_EN_ONGOING)
@@ -215,5 +219,3 @@ void endRelEnModule(){
 	free(relEN_coeff);
 	free(localSamples.data_1stHalf);
 }
-
-
