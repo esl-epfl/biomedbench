@@ -183,8 +183,7 @@ static void clf_mlp_light_fn(void *args) {
     add_row_w(&act3, &mlp_light3_b);
 
 #ifdef PRINTING
-    printf("MLP output: 
-");
+    printf("MLP output: \n");
 #endif
 
     // Argmax
@@ -203,8 +202,7 @@ static void clf_mlp_light_fn(void *args) {
     *class = j_max;
 
 #ifdef PRINTING
-    printf("
-");
+    printf("\n");
 #endif
 }
 

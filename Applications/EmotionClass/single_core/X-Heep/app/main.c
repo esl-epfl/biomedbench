@@ -1,4 +1,3 @@
-// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -19,6 +18,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Original app:    Bindi from Jose A. Miranda Calero,  Universidad Carlos III de Madrid                //
 // Modified by:     Dimitrios Samakovlis, Embedded Systems Laboratory (ESL), EPFL                       //
+// Porting to X-Heep : Francesco Poluzzi                                                                //
 // Date:            February 2024                                                                       //  
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -48,9 +48,7 @@ int main (void) {
     for (int i=0; i<WINDOWS; i++)   {
         if (preprocess_input(bvp_sensor[i], gsr_sensor[i], temp_sensor[i])) {
             #ifdef PRINTING_DETAILS
-            printf("
-*** Batch %d ***
-", i + 1);
+            printf("\n*** Batch %d ***\n", i + 1);
             #endif
             temp = runKNN();
             count += temp;
@@ -61,41 +59,27 @@ int main (void) {
 
         #ifdef PRINTING_DETAILS
         if (temp == -1)
-            printf("Batch %d --> ERROR: Could not classify because value out of normalization range
-
-", i + 1);
+            printf("Batch %d --> ERROR: Could not classify because value out of normalization range\n", i + 1);
         else if (temp == 0)
-            printf("Batch %d --> NO FEAR
-
-", i + 1);
+            printf("Batch %d --> NO FEAR\n", i + 1);
         else
-            printf("Batch %d --> FEAR
-
-", i + 1);
+            printf("Batch %d --> FEAR\n", i + 1);
         #endif
     }
     #ifdef PRINT_CYCLES
         uint32_t cycles=timer_stop();
-        printf("Cycles: %d
-",cycles);
+        printf("Cycles: %d\n",cycles);
     #endif
     #ifdef PRINTING_RESULT
-    printf("*** CLASSIFICATION REPORT *** 
-");
+    printf("*** CLASSIFICATION REPORT *** \n");
     
     if (count > THRESHOLD)
-        printf("Result: FEAR!
-");
+        printf("Result: FEAR!\n");
     else
-        printf("Result: NO FEAR!
-");
+        printf("Result: NO FEAR!\n");
     
-    printf("Total batches: %d
-Threshold: %d
-Fear batches:%d
-", WINDOWS, THRESHOLD, count);
-    printf("***************************** 
-");
+    printf("Total batches: %d\nThreshold: %d\nFear batches:%d\n", WINDOWS, THRESHOLD, count);
+    printf("***************************** \n");
     #endif
 
     return 0;

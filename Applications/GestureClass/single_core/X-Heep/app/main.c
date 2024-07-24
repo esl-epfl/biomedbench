@@ -137,9 +137,7 @@ static void run_semg_bss() {
     // *** CLASSIFICATION ***
     uint8_t class = 0;
 #ifdef PRINTING
-    printf("
-MLPLight
-");
+    printf("\nMLPLight\n");
 #endif
     MLPLightArgs clf_args = {
         .mlp_light1_w = &mlp_light1_w,
@@ -157,28 +155,22 @@ MLPLight
 #ifdef PRINTING
     switch (class) {
         case 0:
-            printf("Predicted class: rest
-");
+            printf("Predicted class: rest\n");
             break;
         case 1:
-            printf("Predicted class: hand_open
-");
+            printf("Predicted class: hand_open\n");
             break;
         case 2:
-            printf("Predicted class: fist
-");
+            printf("Predicted class: fist\n");
             break;
         case 3:
-            printf("Predicted class: index
-");
+            printf("Predicted class: index\n");
             break;
         case 4:
-            printf("Predicted class: ok
-");
+            printf("Predicted class: ok\n");
             break;
         default:
-            printf("Unexpected class
-");
+            printf("Unexpected class\n");
     }
 #endif
 
@@ -192,8 +184,7 @@ int main(int argc, char *argv[]) {
     run_semg_bss();
      #ifdef PROFILING
         uint32_t cycles=timer_stop();
-        printf("Cycles: %d
-",cycles);
+        printf("Cycles: %d\n",cycles);
     #endif
     return 0;
 }

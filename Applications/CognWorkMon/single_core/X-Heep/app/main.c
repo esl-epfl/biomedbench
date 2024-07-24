@@ -1,4 +1,3 @@
-// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -22,6 +21,7 @@
 // Date:            September 2023                  //
 //////////////////////////////////////////////////////
 
+// Porting to X-Heep : Francesco Poluzzi
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -83,8 +83,7 @@ void eGlass()
     // Init statistical feature extraction
     if (StatisticalFeatures_Init(N_BATCHES, N_CHANNEL_USED) == 0)
     {
-        printf("ERROR STATS INIT!
-");
+        printf("ERROR STATS INIT!\n");
     }
 
     // Init statistical feature histogram
@@ -101,8 +100,7 @@ void eGlass()
     int cnt = 0;
 
 #ifdef PRINT_INFO
-    printf("NUM_HALF_WIND:	%d
-", num_half_windows);
+    printf("NUM_HALF_WIND:\t%d\n", num_half_windows);
 #endif
 
     uint16_t start_half_index = 0; // start index of the half_window used for relEn
@@ -114,14 +112,12 @@ void eGlass()
         start_half_index = size_proc_buf * i;
 
 	#ifdef PRINT_INFO
-        printf("-----------------%d--------------------
-", cnt);
+        printf("-----------------%d--------------------\n", cnt);
 	#endif
 
 #ifdef APPLY_BLINK_REMOVAL
 	#ifdef PRINT_INFO
-        printf("[%d - %d)
-", start_half_index, start_half_index + size_proc_buf);
+        printf("[%d - %d)\n", start_half_index, start_half_index + size_proc_buf);
 	#endif
         /* Channel A */
 
@@ -132,15 +128,11 @@ void eGlass()
         if (st == REL_EN_AVAILABLE)
         {
 #ifdef PRINT_INFO
-            printf("++++++++++++++++++++
-+ RelEn available! +
-++++++++++++++++++++
-");
+            printf("++++++++++++++++++++\n+ RelEn available! +\n++++++++++++++++++++\n");
 #endif
 #else
 #ifdef PRINT_INFO
-        printf("[%d - %d)
-", start_full_index, start_full_index + WINDOW_LENGTH);
+        printf("[%d - %d)\n", start_full_index, start_full_index + WINDOW_LENGTH);
 #endif
 #endif
             /* CHANNEL A */
@@ -197,12 +189,10 @@ void eGlass()
                 for (int i = 0; i < N_CHANNEL_USED * NUM_FEATURES; i++)
                 {
                     if ((i % NUM_FEATURES) == 0)
-                        printf("
-");
-                    printf("f[%d]:	", i);
+                        printf("\n");
+                    printf("f[%d]:\t", i);
                     print_float(fx_xtof(features_eeg.features_all[i], N_DEC_ENTR),4);
-                    printf("
-");
+                    printf("\n");
                 }
 #endif
                 my_int features_used[N_FEAT_USED_RF];
@@ -215,9 +205,7 @@ void eGlass()
                 out = decisionTreeFun(features_used);
 
             #ifdef PRINT_CLASSIFICATION
-                printf("
-Classification result: %d
-", out);
+                printf("\nClassification result: %d\n", out);
             #endif
             }
             start_full_index += WINDOW_LENGTH; // Incremented by one full window
@@ -253,12 +241,7 @@ Classification result: %d
 #endif
     
     #ifdef PRINT_INFO
-    printf("
------------------
-|    THE END    |
------------------
-
-");
+    printf("\n-----------------\n|    THE END    |\n-----------------\n\n");
     #endif
     
     return;
@@ -270,11 +253,7 @@ int main(void)
 {
 
     #ifdef PRINT_INFO
-    printf("
-
-	 *** Cognitive Workload Monitoring fixed-point ***
-
-");
+    printf("\n\n\t *** Cognitive Workload Monitoring fixed-point ***\n\n");
     #endif
     #ifdef PRINT_CYCLES
         timer_init();
@@ -283,8 +262,7 @@ int main(void)
     eGlass();
     #ifdef PRINT_CYCLES
         uint32_t cycles=timer_stop();
-        printf("Cycles: %d
-",cycles);
+        printf("Cycles: %d\n",cycles);
     #endif
 
     return 0;

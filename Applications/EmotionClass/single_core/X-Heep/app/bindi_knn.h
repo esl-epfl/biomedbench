@@ -1,4 +1,3 @@
-// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -19,6 +18,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Original app:    Bindi from Jose A. Miranda Calero,  Universidad Carlos III de Madrid                //
 // Modified by:     Dimitrios Samakovlis, Embedded Systems Laboratory (ESL), EPFL                       //
+// Porting to X-Heep : Francesco Poluzzi                                                                //
 // Date:            February 2024                                                                       //  
 //////////////////////////////////////////////////////////////////////////////////////////////////////////
 

@@ -1,4 +1,3 @@
-// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -21,6 +20,8 @@
 // Contributions:   Dimitrios Samakovlis            //
 // Date:            September 2023                  //
 //////////////////////////////////////////////////////
+
+// Porting to X-Heep : Francesco Poluzzi
 
 #include <featureExtraction.h>
 #include <statisticalFeatureExtraction.h>
@@ -45,8 +46,7 @@ unsigned int FeatureExtraction(my_int *features, my_int *sig, uint8_t channel)
 
 	if (!cpy_data_feat || !hist)
 	{
-		printf("ERROR!
-");
+		printf("ERROR!\n");
 	}
 
 	vect_copy(sig, cpy_data_feat, WINDOW_LENGTH);

@@ -57,15 +57,14 @@ uint8_t relEn_Init(uint16_t buffer_len)
 	my_int *p;
 
 	if(buffer_len!=LONG_WINDOW)
-		printf("ERROR!");
+		printf("ERROR!\n");
 
 	relEN_coeff = (my_int *) malloc(LONG_WINDOW * sizeof(my_int));
 
 	//store the data copy in a contiguous memory
 	p = (my_int *) malloc(3*LONG_WINDOW_HALF*sizeof(my_int));
 	if(!p){
-		printf("MEM ERROR!
-");
+		printf("MEM ERROR!\n");
 	}
 
 	if(relEN_coeff && p){
@@ -93,8 +92,7 @@ uint8_t relEn(my_int *data, uint16_t len) {
 	my_int s1, s2;
 
 	if(len!=LONG_WINDOW_HALF)
-		printf("ERROR 1!
-");
+		printf("ERROR 1!\n");
 
 	switch(relEn_status.stage)
 	{
@@ -130,8 +128,7 @@ uint8_t relEn(my_int *data, uint16_t len) {
 
 			if(relEn_status.status!=REL_EN_START && relEn_status.status!=REL_EN_ONGOING) //has to be restarted explicitly to indicate that the previous coefficients were used already
 			{
-				printf("ERROR 2!
-");
+				printf("ERROR 2!\n");
 			}
 
 			if(relEn_status.status==REL_EN_ONGOING)

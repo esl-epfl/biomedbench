@@ -105,7 +105,6 @@ void print_mat(const Matrix *m) {
         for (size_t j = 0; j < m->width; j++) {
             printf("%.2f ", MAT_CELL(m, i, j));
         }
-        printf("
-");
+        printf("\n");
     }
 }

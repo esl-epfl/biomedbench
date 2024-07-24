@@ -82,8 +82,7 @@ void delineateECG(){
             for(int32_t sample = dim*lead_print; sample<dim*(lead_print+1); sample++) {
                 printf("%d ", ecg_buff[sample]);
             }
-            printf("
-");
+            printf("\n");
         }
     #endif
 
@@ -102,8 +101,7 @@ void delineateECG(){
                 for(int32_t sample = dim*NLEADS; sample<dim*(NLEADS+1); sample++) {
                     printf("%d ", ecg_buff[sample]);
                 }
-                printf("
-");
+                printf("\n");
             }
     #endif
 
@@ -196,8 +194,7 @@ void classifyBeatECG()  {
             for(int32_t sample = 0; sample<dim; sample++) {
                 printf("%d ", ecg_buff[sample]);
             }
-            printf("
-");
+            printf("\n");
         }
     #endif
 
@@ -218,8 +215,7 @@ void classifyBeatECG()  {
             for(int32_t sample = dim*NLEADS; sample<dim*(NLEADS+1); sample++) {
                 printf("%d ", ecg_buff[sample]);
             }
-            printf("
-");
+            printf("\n");
         }
     #endif
 
@@ -239,8 +235,7 @@ void classifyBeatECG()  {
         for(int32_t indR=0; indR<rpeaks_counter; indR++) {
             printf("%d ", (indicesRpeaks[indR] + offset_del));
         }
-        printf("
-");
+        printf("\n");
     #endif
 
 #endif // MODULE_RPEAK
@@ -258,18 +253,15 @@ void classifyBeatECG()  {
 
     #ifdef PRINT_BEATCLASS
         for(int32_t indR=0; indR<rpeaks_counter; indR++) {
-          printf("%d %d
-", indicesRpeaks[indR], indicesBeatClasses[indR]);
+          printf("%d %d\n", indicesRpeaks[indR], indicesBeatClasses[indR]);
         }
     #endif
     
     #ifdef PRINT_RESULT
         if(flag_abnBeat)
-	    printf("Window %d: ABNORMAL_BEAT!
-", rWindow);
+	    printf("Window %d: ABNORMAL_BEAT!\n", rWindow);
 	else
-	    printf("Window %d: BIEN!
-", rWindow);
+	    printf("Window %d: BIEN!\n", rWindow);
     #endif
 
 #endif // MODULE_BEATCLASS
@@ -293,8 +285,7 @@ void classifyBeatECG()  {
     #ifdef PRINT_DEL
             for(int32_t ix = 0; ix<(rpeaks_counter-1)*FPSIZE; ix++)
                 printf("%d ", complete_del[ix]);
-            printf("
-");
+            printf("\n");
     #endif
 
 #ifdef ONLY_FIRST_WINDOW

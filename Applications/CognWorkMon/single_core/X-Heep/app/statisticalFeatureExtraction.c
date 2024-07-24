@@ -79,8 +79,7 @@ int8_t StatisticalFeatures_Init(uint8_t nBatches, uint8_t nchannels){
 				}
 				else{
 					status=0;
-                    printf("ERROR!
-");
+                    printf("ERROR!\n");
 					break;
 				}
 				i++;
@@ -88,14 +87,12 @@ int8_t StatisticalFeatures_Init(uint8_t nBatches, uint8_t nchannels){
 		}
 		else{
 			status=0;
-            printf("ERROR!
-");
+            printf("ERROR!\n");
 		}
 	}
 	else{
 		status=0;
-        	printf("ERROR!
-");
+        	printf("ERROR!\n");
 	}
 
 	return status;
@@ -151,8 +148,7 @@ int8_t StatisticalFeatures_InitHistogram (uint8_t nbins, my_int hist_min, my_int
 		}
 		else{
 			status=0;
-			printf("ERROR!
-");
+			printf("ERROR!\n");
 			break;
 		}
 

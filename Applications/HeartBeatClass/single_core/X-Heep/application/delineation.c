@@ -392,8 +392,7 @@ void optimized_feature_extraction(dType* ecgRR, int32_t sigLength, dType fs, int
                 }
                 break;
             default:
-//              printf("Error in reading fiducial point
-");
+//              printf("Error in reading fiducial point\n");
                 break;
         }
         delineatedRR[i + (rp-1)*FPSIZE] = (uint32_t) feature + startindexRR;

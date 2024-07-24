@@ -39,8 +39,7 @@ int main()
 
     #ifdef PRINT_CYCLES
         uint32_t cycles=timer_stop();
-        printf("Cycles: %d
-",cycles);
+        printf("Cycles: %d\n",cycles);
     #endif
     return 0;
 }

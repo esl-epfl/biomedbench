@@ -1,4 +1,3 @@
-// Porting to X-Heep : Francesco Poluzzi
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *
@@ -21,6 +20,8 @@
 // Contributions:   Dimitrios Samakovlis            //
 // Date:            September 2023                  //
 //////////////////////////////////////////////////////
+
+// Porting to X-Heep : Francesco Poluzzi
 
 #ifndef MAIN_H
 #define MAIN_H
