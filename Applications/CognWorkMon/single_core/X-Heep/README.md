@@ -7,7 +7,7 @@ To build and run this application on the x-heep MCU board, follow the user guide
 
 This was tested on a Xylinx PYNQ-Z2 FPGA on the X-Heep version: `dab270bf056deb933e1f064037a7af8c30bd05b2`.
 
-On the file `defines.h`, you can find debugging and profiling macros.
+On the file `main.h`, you can find debugging and profiling macros.
 
 ### Memory Configuration
 
