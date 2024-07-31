@@ -45,4 +45,4 @@ This is an example of a working memory configuration
 }
 }
 ```
-Also, this application requires an increased heap memory size, configurable in the file `mcu_cfg.hjson`
+Also, this application requires an increased heap memory size, configurable in the file `mcu_cfg.hjson`. An heap size of `0x10000` Bytes is enough.

@@ -17,4 +17,4 @@ The application requires at least 6 32KB-memory banks to fit on the SRAM of the 
 make mcu-gen  MEMORY_BANKS=6
 ```
 
-Also, this application requires an increased heap memory size, configurable in the file `mcu_cfg.hjson`
+Also, this application requires an increased heap memory size, configurable in the file `mcu_cfg.hjson`. An heap size of `0x10000` Bytes is enough.
