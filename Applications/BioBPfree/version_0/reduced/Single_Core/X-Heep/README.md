@@ -1,15 +1,13 @@
-# CoughDet Application for X-Heep MCU Board
+# BioBPfree Application for x-heep MCU Board
 
 ## Building and Running
 
 To build and run this application on the x-heep MCU board, follow the user guide at [X-Heep Documentation](https://x-heep.readthedocs.io/en/latest/index.html). 
 
 
-This was tested on a Xylinx PYNQ-Z2 FPGA on the X-Heep version: `dab270bf056deb933e1f064037a7af8c30bd05b2`. 
+This was tested on a Xylinx PYNQ-Z2 FPGA on the X-Heep version: `dab270bf056deb933e1f064037a7af8c30bd05b2`.
 
-On the file `inc/laucher.h`, you can find debugging and profiling macros.
-
-Note: due to the high memory requirements of this application, some data are loaded into flash. This application will not work in the X-Heep simulation environments (Verilator and Questasim).
+On the file `main.h`, you can find debugging and profiling macros.
 
 ### Memory Configuration
 
@@ -37,14 +35,14 @@ This is an example of a working memory configuration
     {
       name: code
       start: 0
-      size: 0x000050000   
+      size: 0x000038000   
     },
     {
       name: data
-      start: 0x000050000
+      start: 0x000038000
     }
   ]
 }
 }
 ```
-Also, this application requires an increased heap memory size, configurable in the file `mcu_cfg.hjson`. A en example of a working heap size is `0x2D000` Bytes.
+Also, this application requires an increased heap memory size, configurable in the file `mcu_cfg.hjson`. A en example of a working heap size is `0x40000`.
