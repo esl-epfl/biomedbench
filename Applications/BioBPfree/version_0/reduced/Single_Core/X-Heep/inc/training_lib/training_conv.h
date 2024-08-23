@@ -13,6 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+//////// Mapping to X-Heep: Francesco Poluzzi  \\\\
 
 
 //////////////////////////////////////////////////////////////////
@@ -166,7 +167,7 @@ void dLdw_dLdb_conv1D_block_QOID_Norm1(const my_type *x, my_type *y_relu, my_typ
                                         int conv_output_len, int output_depth,
                                         batch_norm_params_t *batch_norm_params,
                                         int pool_size, int output_len,
-                                        int input_index); 
+                                        int input_index, uint32_t *cycle_count); 
 
 
 #endif

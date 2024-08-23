@@ -13,6 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+//////// Mapping to X-Heep: Francesco Poluzzi  \\\\
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -53,7 +54,9 @@ int main()   {
     printf("Starting the application\n");
     #endif
     // if (w25q128jw_init(spi_flash) != FLASH_OK) return EXIT_FAILURE;
+    uint32_t cycle_count=0;
     #ifdef PRINT_CYCLES
+        uint32_t cycles=0;
         timer_cycles_init();
         timer_start();
     #endif
@@ -80,6 +83,13 @@ int main()   {
     my_type beta1 = 0.9, beta2 = 0.999, alpha = 0.001, epsilon = 1e-8;
     Adam_parameters Adam_filter, Adam_bias;
 
+        #ifdef PRINT_CYCLES
+            cycles=timer_stop();
+            cycle_count++;
+            printf("Cycles[%d]: %d\n",cycle_count,cycles);       
+            timer_cycles_init();
+            timer_start();
+        #endif
 
     // --- MEMORY ALLOCATION ---
 
@@ -101,6 +111,13 @@ int main()   {
     // Initialize Adam parameters
     Adam_optimizer_init(&Adam_filter, beta1, beta2, alpha, epsilon, filter_size);
     Adam_optimizer_init(&Adam_bias, beta1, beta2, alpha, epsilon, bias_size);
+    #ifdef PRINT_CYCLES
+            cycles=timer_stop();
+            cycle_count++;
+            printf("Cycles[%d]: %d\n",cycle_count,cycles);               
+            timer_cycles_init();
+            timer_start();
+    #endif
 
     // ------------------------
 
@@ -135,6 +152,13 @@ int main()   {
         #ifdef DEBUG_PRINTS
         printf("Forward propagation for Seizure 1 completed\n");
         #endif
+        #ifdef PRINT_CYCLES
+            cycles=timer_stop();
+            cycle_count++;
+            printf("Cycles[%d]: %d\n",cycle_count,cycles);       
+            timer_cycles_init();
+            timer_start();
+        #endif
 
         // Seizure 2
         conv1D(x_set[1], filters_, bias_, y_relu_seiz2,
@@ -144,6 +168,13 @@ int main()   {
         max_pool1D(y_relu_seiz2, y_seiz2, pool_size, conv_output_size, output_size);
         #ifdef DEBUG_PRINTS
         printf("Forward propagation for Seizure 2 completed\n");
+        #endif
+        #ifdef PRINT_CYCLES
+            cycles=timer_stop();
+                cycle_count++;
+            printf("Cycles[%d]: %d\n",cycle_count,cycles);       
+            timer_cycles_init();
+            timer_start();
         #endif
 
         // Non-seizure 1
@@ -155,6 +186,13 @@ int main()   {
         #ifdef DEBUG_PRINTS
         printf("Forward propagation for Non-seizure 1 completed\n");
         #endif
+        #ifdef PRINT_CYCLES
+            cycles=timer_stop();
+                cycle_count++;
+            printf("Cycles[%d]: %d\n",cycle_count,cycles);       
+            timer_cycles_init();
+            timer_start();
+        #endif
 
         // Non-seizure 2
         conv1D(x_set[3], filters_, bias_, y_relu_nonseiz2,
@@ -164,6 +202,13 @@ int main()   {
         max_pool1D(y_relu_nonseiz2, y_nonseiz2, pool_size, conv_output_size, output_size);   
         #ifdef DEBUG_PRINTS
         printf("Forward propagation for Non-seizure 2 completed\n");
+        #endif
+        #ifdef PRINT_CYCLES
+            cycles=timer_stop();
+                cycle_count++;
+            printf("Cycles[%d]: %d\n",cycle_count,cycles);       
+            timer_cycles_init();
+            timer_start();
         #endif
         // --------------------------
 
@@ -178,6 +223,13 @@ int main()   {
             print_float(Loss,6);
             printf("\n");
         #endif
+        #ifdef PRINT_CYCLES
+            cycles=timer_stop();
+                cycle_count++;
+            printf("Cycles[%d]: %d\n",cycle_count,cycles);       
+            timer_cycles_init();
+            timer_start();
+        #endif
         memset(dLdw,0, filter_size * sizeof(my_type));
         memset(dLdb,0, bias_size   * sizeof(my_type));
         // Seizure 1 - dLdw, dLdb
@@ -186,12 +238,19 @@ int main()   {
                                             input_len, input_depth,
                                             no_filters_, filter_len, stride, padding, bias_sharing,
                                             conv_output_len, output_depth,
-                                            &bn_params, pool_size, output_len, 0);
+                                            &bn_params, pool_size, output_len, 0 ,&cycle_count);
         
         free(y_relu_seiz1);
         #ifdef DEBUG_PRINTS
         printf("Completed dLdw_dLdb_conv1D_block_QOID_Norm1 with input length %d, input depth %d, number of filters %d, filter length %d, stride %d, padding %d, and output length %d\n",
             input_len, input_depth, no_filters_, filter_len, stride, padding, output_len);
+        #endif
+        #ifdef PRINT_CYCLES
+            cycles=timer_stop();
+                cycle_count++;
+            printf("Cycles[%d]: %d\n",cycle_count,cycles);       
+            timer_cycles_init();
+            timer_start();
         #endif
         // Seizure 2 - dLdw, dLdb
         dLdw_dLdb_conv1D_block_QOID_Norm1(x_set[1], y_relu_seiz2, y_seiz2, y_seiz1, y_seiz2, y_nonseiz1, y_nonseiz2,
@@ -199,12 +258,19 @@ int main()   {
                                             input_len, input_depth,
                                             no_filters_, filter_len, stride, padding, bias_sharing,
                                             conv_output_len, output_depth,
-                                            &bn_params, pool_size, output_len, 1);
+                                            &bn_params, pool_size, output_len, 1 ,&cycle_count);
 
         free(y_relu_seiz2);
         #ifdef DEBUG_PRINTS
         printf("Completed dLdw_dLdb_conv1D_block_QOID_Norm1 with input length %d, input depth %d, number of filters %d, filter length %d, stride %d, padding %d, and output length %d\n",
             input_len, input_depth, no_filters_, filter_len, stride, padding, output_len);
+        #endif
+        #ifdef PRINT_CYCLES
+            cycles=timer_stop();
+                cycle_count++;
+            printf("Cycles[%d]: %d\n",cycle_count,cycles);       
+            timer_cycles_init();
+            timer_start();
         #endif
         // Non-seizure 1 - dLdw, dLdb
         dLdw_dLdb_conv1D_block_QOID_Norm1(x_set[2], y_relu_nonseiz1, y_nonseiz1, y_seiz1, y_seiz2, y_nonseiz1, y_nonseiz2,
@@ -212,25 +278,42 @@ int main()   {
                                             input_len, input_depth,
                                             no_filters_, filter_len, stride, padding, bias_sharing,
                                             conv_output_len, output_depth,
-                                            &bn_params, pool_size, output_len, 2);
+                                            &bn_params, pool_size, output_len, 2 ,&cycle_count);
                                             
         free(y_relu_nonseiz1);
         #ifdef DEBUG_PRINTS
         printf("Completed dLdw_dLdb_conv1D_block_QOID_Norm1 with input length %d, input depth %d, number of filters %d, filter length %d, stride %d, padding %d, and output length %d\n",
             input_len, input_depth, no_filters_, filter_len, stride, padding, output_len);
         #endif
+
+        #ifdef PRINT_CYCLES
+            cycles=timer_stop();
+                cycle_count++;
+            printf("Cycles[%d]: %d\n",cycle_count,cycles);       
+            timer_cycles_init();
+            timer_start();
+        #endif
+
         // Non-seizure 2 - dLdw, dLdb
         dLdw_dLdb_conv1D_block_QOID_Norm1(x_set[3], y_relu_nonseiz2, y_nonseiz2, y_seiz1, y_seiz2, y_nonseiz1, y_nonseiz2,
                                             dLdw, dLdb,
                                             input_len, input_depth,
                                             no_filters_, filter_len, stride, padding, bias_sharing,
                                             conv_output_len, output_depth,
-                                            &bn_params, pool_size, output_len, 3);
+                                            &bn_params, pool_size, output_len, 3 ,&cycle_count);
                                             
         free(y_relu_nonseiz2);
         #ifdef DEBUG_PRINTS
         printf("Completed dLdw_dLdb_conv1D_block_QOID_Norm1 with input length %d, input depth %d, number of filters %d, filter length %d, stride %d, padding %d, and output length %d\n",
             input_len, input_depth, no_filters_, filter_len, stride, padding, output_len);
+        #endif
+
+        #ifdef PRINT_CYCLES
+            cycles=timer_stop();
+                cycle_count++;
+            printf("Cycles[%d]: %d\n",cycle_count,cycles);       
+            timer_cycles_init();
+            timer_start();
         #endif
 
         // ----------------------------
@@ -241,6 +324,15 @@ int main()   {
         #ifdef DEBUG_PRINTS
         printf("Completed Adam_optimizer_step for filters\n");
         #endif
+
+        #ifdef PRINT_CYCLES
+            cycles=timer_stop();
+                cycle_count++;
+            printf("Cycles[%d]: %d\n",cycle_count,cycles);       
+            timer_cycles_init();
+            timer_start();
+        #endif
+
         Adam_optimizer_step(&Adam_bias, bias_, dLdb);
         #ifdef DEBUG_PRINTS
         printf("Completed Adam_optimizer_step for bias\n");
@@ -260,6 +352,14 @@ int main()   {
         }
 
     }
+
+    #ifdef PRINT_CYCLES
+        cycles=timer_stop();
+                cycle_count++;
+        printf("Cycles[%d]: %d\n",cycle_count,cycles);           
+        timer_cycles_init();
+        timer_start();
+    #endif
 
     // ----------------------------
 
@@ -327,8 +427,10 @@ int main()   {
     #endif
     
     #ifdef PRINT_CYCLES
-        uint32_t cycles=timer_stop();
-        printf("Cycles: %d\n",cycles);
+        cycles=timer_stop();
+                cycle_count++;
+        printf("Cycles[%d]: %d\n",cycle_count,cycles);
+        printf("Total cycles are the sum of all the above cycles\n");
     #endif
 
     return 0;

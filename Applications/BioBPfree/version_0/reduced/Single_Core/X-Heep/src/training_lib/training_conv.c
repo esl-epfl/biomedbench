@@ -13,6 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+//////// Mapping to X-Heep: Francesco Poluzzi  \\\\
 
 
 ///////////////////////////////////////////////////////////////////
@@ -42,6 +43,7 @@
 #include "training_batch_norm.h"
 
 #include "x-heep.h"
+#include "main.h"
 // #include "w25q128jw.h"
 
 
@@ -507,11 +509,21 @@ void dLdw_dLdb_conv1D_block_QOID_Norm1(const my_type *x, my_type *y_relu, my_typ
                                         int conv_output_len, int output_depth,
                                         batch_norm_params_t *batch_norm_params,
                                         int pool_size, int output_len,
-                                        int input_index) {
+                                        int input_index, uint32_t *cycle_count) {
     // Calculate #weight_parameters and size of output
     int weight_size = no_filters * filter_len * input_depth;
     int conv_output_size = conv_output_len * output_depth;
     int output_size = output_len * output_depth;
+
+    #ifdef PRINT_CYCLES
+        uint32_t cycles;
+        uint32_t temp_count = *cycle_count;
+        cycles=timer_stop();
+        temp_count++;
+        printf("Cycles[%d]: %d\n",temp_count,cycles);    
+        timer_cycles_init();
+        timer_start();
+    #endif
 
     // Allocate memory for the 3 derivative vectors (Chain rule)
     my_type *dLdy = (my_type *) malloc(sizeof(my_type) * output_size);
@@ -525,6 +537,15 @@ void dLdw_dLdb_conv1D_block_QOID_Norm1(const my_type *x, my_type *y_relu, my_typ
         dLdy3_QOID_Norm1(y1, y2, y3, y4, dLdy, output_size);
     else
         dLdy4_QOID_Norm1(y1, y2, y3, y4, dLdy, output_size);
+
+    #ifdef PRINT_CYCLES
+        cycles=timer_stop();
+        temp_count++;
+        printf("Cycles[%d]: %d\n",temp_count,cycles);    
+        timer_cycles_init();
+        timer_start();
+    #endif
+
     my_type *dLdy_bn = (my_type *) malloc(sizeof(my_type) * conv_output_size);
     // dLdy_bn - Derivative of Loss with respect to output y after batch normalization
     // Multiply the derivative with the derivatives of pooling, ReLU layers
@@ -553,6 +574,14 @@ void dLdw_dLdb_conv1D_block_QOID_Norm1(const my_type *x, my_type *y_relu, my_typ
     // dydw - Derivative of (conv1d + ReLU) layer with respect to weights
     // Calculate column by column and do vector by vector multiplication (avoid vector by matrix multiplication)
     
+    #ifdef PRINT_CYCLES
+        cycles=timer_stop();
+        temp_count++;
+        printf("Cycles[%d]: %d\n",temp_count,cycles);    
+        timer_cycles_init();
+        timer_start();
+    #endif
+
     for (int weight_index = 0; weight_index < weight_size; weight_index++)   {
         dydw_column_i_conv1D(x, dydw_column_i,
                              input_len, input_depth, no_filters, filter_len, stride, padding,
@@ -563,6 +592,15 @@ void dLdw_dLdb_conv1D_block_QOID_Norm1(const my_type *x, my_type *y_relu, my_typ
         dLdw[weight_index] += vector_by_vector_mul(dLdy_conv, dydw_column_i, conv_output_size);
     }  
     free(dydw_column_i);
+
+    #ifdef PRINT_CYCLES
+        cycles=timer_stop();
+        temp_count++;
+        printf("Cycles[%d]: %d\n",temp_count,cycles);    
+        timer_cycles_init();
+        timer_start();
+        *cycle_count = temp_count;
+    #endif
 
     // dLdb
     // Avoid vector by matrix multiplication since dydb matrix is sparse with 1s and 0s
@@ -583,7 +621,7 @@ void dLdw_dLdb_conv1D_block_QOID_Norm1(const my_type *x, my_type *y_relu, my_typ
         }
 
     }
-    free(dLdy_conv);                       
+    free(dLdy_conv);                 
 }
 
 // ************************************************************

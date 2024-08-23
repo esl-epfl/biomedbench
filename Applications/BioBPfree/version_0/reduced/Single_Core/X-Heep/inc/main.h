@@ -13,6 +13,7 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+//////// Mapping to X-Heep: Francesco Poluzzi  \\\\
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -29,6 +30,7 @@
 #define _CONV_BLOCK_BIOBPFREE_H_
 
 #include <stdbool.h>
+#include <stdint.h>
 
 // *** Print options ***
 #define PRINT_INFO
