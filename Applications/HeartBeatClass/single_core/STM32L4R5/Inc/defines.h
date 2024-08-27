@@ -35,9 +35,9 @@
 #define DATA_ACQUISITION
 
 #ifndef ONLY_FIRST_WINDOW
-#define ECG_VECTOR_SIZE 15000
-#else
 #define ECG_VECTOR_SIZE dim
+#else
+#define ECG_VECTOR_SIZE 15000
 #endif
 
 //========= DEFINE PRINT ========//
@@ -86,10 +86,7 @@
 
 #endif
 
-//======== DEFINE WINDOWS (ONLY FOR DEBUG) ==========//
-#define ONLY_FIRST_WINDOW
-//#define ONLY_TWO_WINDOW
-// #define DEBUG_FIRST_MODULES
+#define ONLY_FIRST_WINDOW   //Only 1 window is processed - Disable this if you want to run more windows
 
 #define H_B 30
 #define N_ 8

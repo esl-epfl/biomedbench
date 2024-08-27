@@ -76,16 +76,12 @@
 
 #endif
 
-//======== DEFINE WINDOWS (ONLY FOR DEBUG) ==========//
-// #define ONLY_FIRST_WINDOW
-// #define ONLY_TWO_WINDOW
-// #define DEBUG_FIRST_MODULES
+#define ONLY_FIRST_WINDOW   //Only 1 window is processed - Disable this if you want to run more windows
 
 #define N 8
 #define H_B 30
 #define dim  (int)((BUFFER_SIZE * N) + LONG_WINDOW)
 #define dim_seconds ((float)dim / ECG_SAMPLING_FREQUENCY)
-
 
 #define MUL 
 #define SCALE 100//6//		64

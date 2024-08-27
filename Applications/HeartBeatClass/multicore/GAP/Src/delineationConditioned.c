@@ -248,11 +248,8 @@ void classifyBeatECG() {
   int32_t flagMF = 0;
   int32_t flag_abnBeat = 0;
 
-  if(ECG_SAMPLING_FREQUENCY == 250) {
-    rOffset_MF = 150;
-  } else {
-    rOffset_MF = 300;
-  }
+  rOffset_MF = 150;
+  
 
   buffSize_MF_RMS = dim;
   count_window = 0;
@@ -448,11 +445,6 @@ void classifyBeatECG() {
 #ifdef ONLY_FIRST_WINDOW 
     pi_cluster_close(&cluster_dev);
     return; 
-#endif
-
-#ifdef ONLY_TWO_WINDOW
-    if (rWindow == 1)
-        return;
 #endif
 
     rOverlap = dim - (indicesRpeaks[rpeaks_counter - 2] - LONG_WINDOW);

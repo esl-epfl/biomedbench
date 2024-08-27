@@ -28,9 +28,9 @@
 #include "../defines.h"
 
 #ifndef ONLY_FIRST_WINDOW
-#define ECG_VECTOR_SIZE 15000
+#define ECG_VECTOR_SIZE dim
 #else
-#define ECG_VECTOR_SIZE 15000//dim
+#define ECG_VECTOR_SIZE 15000
 #endif
 
 #define SUBJECT 4

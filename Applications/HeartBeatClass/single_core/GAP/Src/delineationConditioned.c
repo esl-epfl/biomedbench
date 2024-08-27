@@ -162,11 +162,8 @@ void classifyBeatECG()  {
     int32_t i_lead = 0;
     int32_t flag_abnBeat = 0;
 
-    if(ECG_SAMPLING_FREQUENCY == 250){
-        offset_MF = 150;
-    } else {
-        offset_MF = 300;
-    }
+
+    offset_MF = 150;    // For 250Hz sampling frequency
 
     buffSize_MF_RMS = dim;
     count_window = 0;

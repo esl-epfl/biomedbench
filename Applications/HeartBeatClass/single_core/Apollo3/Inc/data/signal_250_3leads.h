@@ -28,9 +28,9 @@
 #include <stdint.h>
 
 #ifndef ONLY_FIRST_WINDOW
-#define ECG_VECTOR_SIZE 15000
-#else
 #define ECG_VECTOR_SIZE dim
+#else
+#define ECG_VECTOR_SIZE 15000
 #endif
 #define RMS_NLEADS 3
 #define SUBJECT 4

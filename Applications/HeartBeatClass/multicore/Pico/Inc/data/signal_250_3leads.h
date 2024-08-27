@@ -28,7 +28,11 @@
 #include <stdint.h>
 #include <defines_globals.h>
 
+#ifndef ONLY_FIRST_WINDOW
+#define ECG_VECTOR_SIZE dim
+#else
 #define ECG_VECTOR_SIZE 15000
+#endif
 
 #define SUBJECT 4
 

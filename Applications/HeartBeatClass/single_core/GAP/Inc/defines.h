@@ -78,10 +78,7 @@
 
 #endif
 
-//======== DEFINE WINDOWS (ONLY FOR DEBUG) ==========//
-#define ONLY_FIRST_WINDOW
-//#define ONLY_TWO_WINDOW
-// #define DEBUG_FIRST_MODULES
+#define ONLY_FIRST_WINDOW   //Only 1 window is processed - Disable this if you want to run more windows
 
 #define N 8
 #define H_B 30

@@ -58,10 +58,7 @@
 #define MODULE_DEL_3L
 #define MODULE_STEP2
 
-//======== DEFINE WINDOWS (ONLY FOR DEBUG) ==========//
-#define ONLY_FIRST_WINDOW
-//#define ONLY_TWO_WINDOW
-// #define DEBUG_FIRST_MODULES
+#define ONLY_FIRST_WINDOW   //Only 1 window is processed - Disable this if you want to run more windows
 
 // Number of windows collected depend on the number of available core
 #define N 8
