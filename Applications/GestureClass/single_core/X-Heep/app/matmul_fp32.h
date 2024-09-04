@@ -1,4 +1,4 @@
-// Porting to X-Heep : Francesco Poluzzi
+
 /*
  * Copyright (C) 2021-2022 ETH Zurich and University of Bologna
  *

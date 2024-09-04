@@ -21,7 +21,7 @@
 // Date:            September 2023                  //
 //////////////////////////////////////////////////////
 
-// Porting to X-Heep : Francesco Poluzzi
+
 
 #ifndef DECTREECONSTANTS_h
 #define DECTREECONSTANTS_h

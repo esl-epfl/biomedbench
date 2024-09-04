@@ -1,4 +1,4 @@
-// Porting to X-Heep : Francesco Poluzzi
+
 /*
 Copyright 2022 Mattia Orlandi
 
@@ -18,6 +18,7 @@ limitations under the License.
 ///////////////////////////////////////////////////////////////////
 // Additional contributions by:                                  //
 // - Dimitrios Samakovlis (Embedded System Laboratory - EPFL)    //
+// - Francesco Poluzzi (Embedded System Laboratory - EPFL)      //  
 ///////////////////////////////////////////////////////////////////    
 
 

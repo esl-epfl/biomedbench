@@ -21,7 +21,7 @@
 // Date:            September 2023                  //
 //////////////////////////////////////////////////////
 
-// Porting to X-Heep : Francesco Poluzzi
+
 
 #ifndef BIQ_FILTER_H
 #define BIQ_FILTER_H

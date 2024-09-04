@@ -18,7 +18,7 @@
 //////////////////////////////////////////////////
 // Author:          ESL team                    //
 // Optimizations:   Dimitrios Samakovlis        //
-// Porting to X-Heep: Francesco Poluzzi         //
+
 /////////////////////////////////////////////////
 
 

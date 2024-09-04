@@ -1,4 +1,4 @@
-// Porting to X-Heep : Francesco Poluzzi
+
 /*
 Copyright 2022 Mattia Orlandi
 

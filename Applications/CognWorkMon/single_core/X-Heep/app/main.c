@@ -18,10 +18,11 @@
 //////////////////////////////////////////////////////
 // Author:          Stefano Albini                  //
 // Contributions:   Dimitrios Samakovlis            //
+// Porting to X-Heep: Francesco Poluzzi         //
 // Date:            September 2023                  //
 //////////////////////////////////////////////////////
 
-// Porting to X-Heep : Francesco Poluzzi
+
 
 #include <stdio.h>
 #include <stdlib.h>

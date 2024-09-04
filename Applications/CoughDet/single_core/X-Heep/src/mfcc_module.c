@@ -18,6 +18,7 @@
 //////////////////////////////////////////////////////
 // Author:          Stefano Albini                  //
 // Contributions:   Dimitrios Samakovlis            //
+// Porting to X-Heep: Francesco Poluzzi             // 
 // Date:            September 2023                  //
 //////////////////////////////////////////////////////
 
@@ -180,14 +181,6 @@ void _dct_linear(const float *x, int16_t len, float *y){
         uint32_t *source_flash = heep_get_flash_address_offset(&dct_cos[(len * k)]);
         if(w25q128jw_read_standard(source_flash, buffer, len*sizeof(float))!=FLASH_OK)printf("Error reading from flash\n");
 
-        // #ifdef DEBUG_PRINTS
-        //     printf("DCT cos values: \n");
-        //     for(int16_t i=0; i<len; i++){
-        //         print_float(buffer[i], 6);
-        //         printf("   ");
-        //     }
-        //     printf("\n");
-        // #endif
         
         for(int16_t n=0; n<len; n++){
             cos_v = buffer[n];

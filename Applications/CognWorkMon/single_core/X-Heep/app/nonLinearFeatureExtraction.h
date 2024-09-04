@@ -21,7 +21,7 @@
 // Date:            September 2023                  //
 //////////////////////////////////////////////////////
 
-// Porting to X-Heep : Francesco Poluzzi
+
 
 #ifndef NONLINEAR_FEAT_EXTRACTION_H 
 #define NONLINEAR_FEAT_EXTRACTION_H 

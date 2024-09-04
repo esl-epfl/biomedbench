@@ -13,12 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-//////// Mapping to X-Heep: Francesco Poluzzi  \\\\
+
 
 
 ///////////////////////////////////////////////////////////////////
 // Title:   Convolution 1D and common layers training           //
 // Author:  Dimitrios Samakovlis                                //
+// Porting to X-Heep: Francesco Poluzzi         //
 // Date:    February 2024                                       //
 // Description:                                                 //
 // Implemented some basic Conv1D layers for:                    //

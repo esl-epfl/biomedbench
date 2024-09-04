@@ -21,7 +21,7 @@
 // Date:            September 2023                  //
 //////////////////////////////////////////////////////
 
-// Porting to X-Heep : Francesco Poluzzi
+
 
 #ifndef	FEATURE_EXTRACTION_H
 #define	FEATURE_EXTRACTION_H

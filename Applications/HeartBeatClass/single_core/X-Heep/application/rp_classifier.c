@@ -1,4 +1,4 @@
-// Porting to X-Heep : Francesco Poluzzi
+
 /*
  *  Copyright (c) [2024] [Embedded Systems Laboratory (ESL), EPFL]
  *

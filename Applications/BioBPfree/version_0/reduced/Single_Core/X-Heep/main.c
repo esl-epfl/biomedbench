@@ -13,12 +13,13 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-//////// Mapping to X-Heep: Francesco Poluzzi  \\\\
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Title:   BioBPfree training on a Convolution block layer                                                             //
 // Author:  Dimitrios Samakovlis                                                                                        //
+// Porting to X-Heep: Francesco Poluzzi         //
 // Date:    12 March 2024                                                                                               //
 // Description:     We use BioBPfree to train a convolution block layer                                                 //
 // Architecture:    Conv1D + BatchNorm + ReLU + MaxPool                                                                 //
@@ -46,14 +47,12 @@
 #include "print_float.h"
 #include "timer_sdk.h"
 #include "x-heep.h"
-// #include "w25q128jw.h"
 
 // Conv Block structure: Conv1D -> Batch Normalization -> ReLU -> Max pool
 int main()   {
     #ifdef DEBUG_PRINTS
     printf("Starting the application\n");
     #endif
-    // if (w25q128jw_init(spi_flash) != FLASH_OK) return EXIT_FAILURE;
     uint32_t cycle_count=0;
     #ifdef PRINT_CYCLES
         uint32_t cycles=0;

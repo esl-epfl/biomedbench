@@ -1,4 +1,5 @@
-// Porting to X-Heep : Francesco Poluzzi
+
+// Author: Francesco Poluzzi
 #ifndef PRINT_FLOAT_H
 #define PRINT_FLOAT_H
 
