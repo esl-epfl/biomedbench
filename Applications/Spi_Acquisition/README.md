@@ -1,6 +1,7 @@
 # SPI acquisition for X-Heep MCU Board
 
 This application reads a 768-Bytes buffer from a SPI ADC device. Macros are avaliable for debugging and profiling.
+This is a simple version that just reads the data. optimizations are possible by using DMA and by turning off the core during the transmission. Examples on how to do it can be found in the [X-Heep repository](https://github.com/esl-epfl/x-heep/).
 
 ## Building and Running
 
