@@ -32,6 +32,7 @@ Currently, the considered boards and their MCUs are:
 - [Ambiq Apollo3 Blue AMA3BEVB](https://ambiq.com/wp-content/uploads/2020/10/Apollo3-Blue-SoC-Product-Brief.pdf) featuring the [Apollo 3 Blue](https://ambiq.com/wp-content/uploads/2020/10/Apollo3-Blue-SoC-Datasheet.pdf)
 - [Gapuino](https://gwt-website-files.s3.eu-central-1.amazonaws.com/gapuino_v1.1_um.pdf) featuring [GAP8](https://gwt-website-files.s3.amazonaws.com/gap8_datasheet.pdf)
 - [GAP9_EVK](https://greenwaves-technologies.com/wp-content/uploads/2024/05/GAP9_EVK-User-Manual_Rel2.4-1.pdf) featuring [GAP9](https://greenwaves-technologies.com/wp-content/uploads/2024/05/gap9datasheet_v1.0.pdf)
+- [X-Heep](https://github.com/esl-epfl/x-heep) on the FPGA board [PYNQ-Z2](https://www.mouser.com/datasheet/2/744/pynqz2_user_manual_v1_0-1525725.pdf)
 
 
 ## Repository Structure
